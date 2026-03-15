@@ -1,0 +1,23 @@
+.videoCard{
+width:100%;
+cursor:pointer;
+}
+
+.videoCard img{
+width:100%;
+border-radius:10px;
+}
+
+.videoInfo{
+padding:5px;
+}
+
+.videoInfo h4{
+font-size:14px;
+margin:5px 0;
+}
+
+.videoInfo p{
+font-size:12px;
+color:gray;
+}
