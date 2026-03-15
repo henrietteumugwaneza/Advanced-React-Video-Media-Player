@@ -15,3 +15,4 @@ export const fetchFromAPI = async (url) => {
   const { data } = await api.get(url);
   return data;
 };
+console.log(import.meta.env.VITE_RAPID_API_KEY);
