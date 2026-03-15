@@ -1,45 +1,38 @@
 import React from "react";
-import { useParams } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
-import { useParams } from "react-router-dom"
-import { useQuery } from "@tanstack/react-query"
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
-import { fetchFromAPI } from "../api/fetchFromAPI"
-import VideoPlayer from "../components/VideoPlayer"
-import Loader from "../components/Loader"
+import { fetchFromAPI } from "../api/fetchFromAPI";
+import VideoPlayer from "../components/VideoPlayer";
+import Loader from "../components/Loader";
 
-function VideoDetails(){
+function VideoDetails() {
 
-const {id} = useParams()
+  const { id } = useParams();
 
-const {data,isLoading} = useQuery({
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["video", id],
+    queryFn: () => fetchFromAPI(`/videos?part=snippet,statistics&id=${id}`)
+  });
 
-queryKey:["video",id],
+  if (isLoading) return <Loader />;
+  if (isError) return <h2>Failed to load video</h2>;
 
-queryFn:()=>fetchFromAPI(`/videos?part=snippet,statistics&id=${id}`)
+  const video = data?.items?.[0];
 
-})
+  return (
+    <div>
 
-if(isLoading) return <Loader/>
+      <VideoPlayer videoId={id} />
 
-const video = data.items[0]
+      <h2>{video?.snippet?.title}</h2>
 
-return(
+      <p>{video?.statistics?.viewCount} views</p>
 
-<div>
+      <p>{video?.snippet?.description}</p>
 
-<VideoPlayer videoId={id}/>
-
-<h2>{video.snippet.title}</h2>
-
-<p>{video.statistics.viewCount} views</p>
-
-<p>{video.snippet.description}</p>
-
-</div>
-
-)
-
+    </div>
+  );
 }
 
-export default VideoDetails
+export default VideoDetails;
