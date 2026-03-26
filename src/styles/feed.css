@@ -1,7 +1,18 @@
-.videos{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-padding:20px;
-width:100%;
+.feed-container {
+  display: flex;
+  min-height: calc(100vh - 56px);
+}
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px 12px;
+  padding: 20px 16px;
+  flex: 1;
+  align-content: start;
+}
+
+@media (max-width: 768px) {
+  .feed-container { flex-direction: column; }
+  .videos { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px 8px; padding: 12px; }
 }

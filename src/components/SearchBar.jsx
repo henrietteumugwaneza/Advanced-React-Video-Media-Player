@@ -1,37 +1,30 @@
-import React from "react"; 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/navbar.css";
 
-function SearchBar(){
+function SearchBar() {
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
-const [search,setSearch] = useState("")
-const navigate = useNavigate()
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (search.trim()) navigate(`/search/${search.trim()}`);
+  };
 
-const handleSearch = (e)=>{
-e.preventDefault()
-
-if(search){
-navigate(`/search/${search}`)
-}
-}
-
-return(
-
-<form onSubmit={handleSearch}>
-
-<input
-type="text"
-placeholder="Search"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-/>
-
-<button type="submit">Search</button>
-
-</form>
-
-)
-
+  return (
+    <form className="search-form" onSubmit={handleSearch}>
+      <input
+        className="search-input"
+        type="text"
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <button className="search-btn" type="submit" aria-label="Search">
+        🔍
+      </button>
+    </form>
+  );
 }
 
-export default SearchBar
+export default SearchBar;
